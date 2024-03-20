@@ -7715,6 +7715,11 @@ function injectCSS(rootNode, css) {
 		expando.containsStyles = true;
 		css = '/* Chart.js */\n' + css;
 		var style = document.createElement('style');
+		var head = document.head || document.getElementsByTagName('head')[0];
+	    	if (head.querySelector("meta[name='csp-nonce']") !== null){
+	      	  var cspNonce = head.querySelector("meta[name='csp-nonce']").getAttribute('content');
+	     	  style.setAttribute("nonce", cspNonce);
+	    	}
 		style.setAttribute('type', 'text/css');
 		style.appendChild(document.createTextNode(css));
 		rootNode.appendChild(style);
